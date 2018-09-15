@@ -50,6 +50,14 @@ public class game {
 		return board;
 	}
 	
+	public int getCurrentPlayer()
+	{
+		if(oddRound)
+			return 1;
+		else
+			return 2;
+	}
+	
 	private boolean isWin()
 	{
 		//check rows and cols
