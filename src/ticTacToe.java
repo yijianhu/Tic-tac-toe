@@ -1,8 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+
 
 public class ticTacToe {
 
@@ -41,25 +41,28 @@ public class ticTacToe {
 		menuBar.add(menu);
 		
 		frame.setJMenuBar(menuBar);
+
+
 		
 		
 		
 		JPanel panel;
 		panel = new JPanel();
 		panel.setBackground(Color.YELLOW);
-		panel.setSize(400,600);
+		panel.setSize(400, 600);
+		panel.add(new JButton("left bt"));
 		
 		JPanel panel2 = new JPanel();
 		panel2.setBackground(Color.DARK_GRAY);
 		panel2.setSize(800, 600);
+		panel2.setLayout(new GridLayout(2,1));
+		panel2.add(new JButton("right bt"));
 		
-		panel.setLayout(new BorderLayout());
-		panel.add(new JButton("Click"),BorderLayout.WEST);
 		
-		frame.setLayout(new FlowLayout());
+		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-		frame.add(panel,0);
-		frame.add(panel2,1);
+		frame.add(panel);
+		frame.add(panel2);
 		frame.repaint();
 		
 
