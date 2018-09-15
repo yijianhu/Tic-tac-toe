@@ -1,14 +1,11 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
-import javax.swing.JInternalFrame;
 import javax.swing.JTextArea;
+import java.awt.GridLayout;
 
 public class gameUI extends JFrame {
 
@@ -60,5 +57,8 @@ public class gameUI extends JFrame {
 		panel_1.setBounds(636, 10, 550, 550);
 		contentPane.add(panel_1);
 		panel_1.setBackground(Color.white);
+		panel_1.setLayout(new GridLayout(3, 3, 10, 10));
+		
+		JButton[][] blocks = new JButton[3][3];
 	}
 }
