@@ -31,6 +31,7 @@ public class game {
 				else
 					board[x][y]=2;
 				steps.push(x*10+y);
+				oddRound=!oddRound;
 				if(isWin())
 				{
 					if(oddRound)
@@ -38,7 +39,7 @@ public class game {
 					else
 						return 2;
 				}
-				oddRound=!oddRound;
+				//oddRound=!oddRound;
 				return 0;
 			}
 		}
@@ -61,16 +62,19 @@ public class game {
 	private boolean isWin()
 	{
 		//check rows and cols
+		int mulRow, mulCol;
 		for(int x=0;x<3;x++)
 		{
-			int mulRow, mulCol;
-			mulRow=0;
-			mulCol=0;
-			for(int y=0;y<3;y++)
+			mulRow=board[x][0];
+			mulCol=board[0][x];
+			//System.out.print(board[x][0]);
+			for(int y=1;y<3;y++)
 			{
 				mulRow*=board[x][y];
 				mulCol*=board[y][x];
+				//System.out.print(board[x][y]);
 			}
+			System.out.print("\n");
 			if(mulRow==1 || mulCol==8 || mulRow==8 || mulCol==1)
 				return true;
 		}

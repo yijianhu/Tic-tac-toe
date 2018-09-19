@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,12 +22,16 @@ public class ticTacToe {
 	//private static JButton[][] buttons;
 	private static JFrame frame;
 	private static game curGame;
+	private static int winner;
+	private static int steps; // MAX 9 Steps
+	private static playPanel ppanel;
+	private static chatPanel cpanel;
+	private static infoPanel ipanel;
 	
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
 		
-		curGame=new game();
 		
 		//basic frame
 		frame = new JFrame();
@@ -34,14 +39,18 @@ public class ticTacToe {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Tic-tac-toe");
-		frame.setResizable(true);
+		frame.setResizable(false);
 		
+		
+		curGame=new game();
+		winner=0;
+		steps=0;
 		//menu
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu();
 		menu.setText("Menu");
 		JMenuItem item1 = new JMenuItem();
-		item1.setText("save game");
+		item1.setText("new game");
 		
 		menu.add(item1);
 		
@@ -50,39 +59,12 @@ public class ticTacToe {
 		frame.setJMenuBar(menuBar);
 
 
-		JPanel ppanel, cpanel, ipanel;
+		//JPanel ppanel, cpanel, ipanel;
 		ppanel=new playPanel();
 		cpanel=new chatPanel();
 		ipanel=new infoPanel();
 		ppanel.repaint();
-		/*
-		
-		JPanel chatPanel;
-		chatPanel = new JPanel();
-		chatPanel.setLocation(10, 5);
-		chatPanel.setBackground(Color.YELLOW);
-		chatPanel.setSize(346, 523);
-		
-		
-		JPanel playPanel = new JPanel();
-		playPanel.setLocation(366, 5);
-		playPanel.setBackground(Color.DARK_GRAY);
-		playPanel.setSize(523, 523);
-		playPanel.setLayout(new GridLayout(3,3));
-		buttons = new JButton[3][3];
-		
-		
-		JPanel infoPanel = new JPanel();
-		infoPanel.setLocation(898,5);
-		infoPanel.setSize(276,523);
-		infoPanel.setBackground(Color.white);
-		
-		
-		
-		
-		
-		
-		*/
+
 		frame.getContentPane().setLayout(null);
 		
 		frame.getContentPane().add(cpanel);
@@ -118,14 +100,32 @@ public class ticTacToe {
 							{
 						public void mousePressed(MouseEvent e)
 						{
-							int result = curGame.set(row, col);
-							int curPlayer = curGame.getCurrentPlayer();
-							if(result==0)
+							if(winner==0)
 							{
-								if(curPlayer==1)
-									buttons[row][col].setText("X");
-								else
-									buttons[row][col].setText("O");
+								int result = curGame.set(row, col);
+								//System.out.println("result= " + winner);
+								int curPlayer = curGame.getCurrentPlayer();
+								if(result!=-1)
+								{
+									if(curPlayer==1)
+										buttons[row][col].setText("X");
+									else
+										buttons[row][col].setText("O");
+									if(result==1)
+									{
+										winner=1;
+										ipanel.setWinner("Player 1 with X");
+									}
+									else if(result==2)
+									{
+										winner=2;
+										ipanel.setWinner("Player 2 with O");
+									}
+									//System.out.println("winner= " + winner);
+									steps++;
+									if(steps==9 && winner==0)
+										ipanel.setWinner("Draw");
+								}
 							}
 						}
 						
@@ -163,11 +163,26 @@ public class ticTacToe {
 	
 	static class infoPanel extends JPanel
 	{
+		private JLabel curWinner_lb, winner_lb;
+		
 		infoPanel()
 		{
 			setSize(276,523);
 			setBackground(Color.WHITE);
 			setLocation(898,5);
+			
+			curWinner_lb = new JLabel("Current Winner : ");
+			winner_lb = new JLabel();
+			setLayout(new GridLayout(1,2));
+			add(curWinner_lb);
+			add(winner_lb);
+		}
+		
+		public void setWinner(String win)
+		{
+			winner_lb.setText(win);
+			validate();
+			repaint();
 		}
 	}
 }
