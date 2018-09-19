@@ -68,8 +68,8 @@ public class game {
 			mulCol=0;
 			for(int y=0;y<3;y++)
 			{
-				mulRow*=board[y][x];
-				mulCol*=board[x][y];
+				mulRow*=board[x][y];
+				mulCol*=board[y][x];
 			}
 			if(mulRow==1 || mulCol==8 || mulRow==8 || mulCol==1)
 				return true;
