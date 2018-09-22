@@ -3,7 +3,7 @@ import java.util.Stack;
 public class game {
 	private int[][] board;
 	private Stack<Integer> steps;
-	private boolean oddRound;
+	private boolean oddRound;//represents next round player
 	/*    0 0 0		player 1 use 1
 	 *    0 0 0 	player 2 use 2
 	 *    0 0 0
@@ -34,7 +34,7 @@ public class game {
 				oddRound=!oddRound;
 				if(isWin())
 				{
-					if(oddRound)
+					if(!oddRound)
 						return 1;
 					else
 						return 2;

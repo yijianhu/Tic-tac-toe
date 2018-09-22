@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -33,36 +34,48 @@ public class ticTacToe {
 		// TODO Auto-generated method stub
 		
 		
-		//basic frame
 		frame = new JFrame();
+		ppanel=new playPanel();
+		cpanel=new chatPanel();
+		ipanel=new infoPanel();
+		curGame=new game();
+		
+		
+		//basic frame 
 		frame.setSize(1200,600);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Tic-tac-toe");
 		frame.setResizable(false);
-		
-		
-		curGame=new game();
-		winner=0;
-		steps=0;
+
 		//menu
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu();
 		menu.setText("Menu");
 		JMenuItem item1 = new JMenuItem();
 		item1.setText("new game");
+		item1.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e)
+			{
+				curGame=new game();
+				winner=0;
+				steps=0;
+				ppanel.clear();
+				ipanel.setWinner("");
+			}
+		});
+		
 		
 		menu.add(item1);
-		
 		menuBar.add(menu);
-		
 		frame.setJMenuBar(menuBar);
+		
+		
+		winner=0;
+		steps=0;
 
 
 		//JPanel ppanel, cpanel, ipanel;
-		ppanel=new playPanel();
-		cpanel=new chatPanel();
-		ipanel=new infoPanel();
 		ppanel.repaint();
 
 		frame.getContentPane().setLayout(null);
@@ -74,6 +87,11 @@ public class ticTacToe {
 		frame.repaint();
 		
 
+	}
+	
+	private static void init()
+	{
+		
 	}
 	
 	static class playPanel extends JPanel
@@ -114,13 +132,14 @@ public class ticTacToe {
 									if(result==1)
 									{
 										winner=1;
-										ipanel.setWinner("Player 1 with X");
+										ipanel.setWinner("Player 1 with O");
 									}
 									else if(result==2)
 									{
 										winner=2;
-										ipanel.setWinner("Player 2 with O");
+										ipanel.setWinner("Player 2 with X");
 									}
+									buttons[row][col].setFont(new Font("Arial", Font.PLAIN, 80));
 									//System.out.println("winner= " + winner);
 									steps++;
 									if(steps==9 && winner==0)
@@ -146,6 +165,17 @@ public class ticTacToe {
 		public void syncBts(int[][] bt)
 		{
 			
+		}
+		
+		public void clear()
+		{
+			for(int r = 0;r<buttons.length;r++)
+			{
+				for(int c=0;c<buttons[r].length;c++)
+				{
+					buttons[r][c].setText("");
+				}
+			}
 		}
 		
 		
